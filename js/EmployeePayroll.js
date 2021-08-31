@@ -1,7 +1,7 @@
 class EmployeePayrollData{
     
     //getter and setter method
-    get(id) {return this._id;}
+    get id() {return this._id;}
     set id(id){
         this._id = id;
     }
@@ -41,14 +41,16 @@ class EmployeePayrollData{
 
     get startDate(){ return this._startDate;}
     set startDate(startDate){
+        let now = new Date();
+        if(startDate > now) throw 'Start Date is a Future Date!';
+        var diff = Math.abs(now.getTime() - startDate.getTime());
+        if( diff / (1000 * 60 * 60 * 24) > 30)
+            throw 'Start Date is beyond 30 Days';
         this._startDate = startDate;
     }
 
     //method
     toString(){
-        //const options = { startDates: 'numeric-numeric-numeric'};
-        //const empDate = !this.startDate ? "undefined" :
-        //                this.startDate.toLocaleDateString("en-US", options);
         return "id=" + this.id + ", name='" + this.name + ", gender='" + this.gender +
                 ", profilePic='" + this.profilePic + ", department=" +this.department +
                 ", salary=" + this.salary + ", startDate=" + this.startDate + ", note=" + this.note;
